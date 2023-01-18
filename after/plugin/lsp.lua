@@ -24,6 +24,7 @@ lsp.set_preferences({
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    vim.keymap.set("n", "gc", function() vim.lsp.buf.incoming_calls() end, opts)
 end)
 
 local cmp = require('cmp')
@@ -46,7 +47,7 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 
-vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 local null_ls = require('null-ls')
 local null_opts = lsp.build_options('null-ls', {})
